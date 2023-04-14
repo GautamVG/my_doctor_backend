@@ -159,3 +159,9 @@ General guidlines:
 | `GET /appointment/{uuid}`                       | `POST /appointment`    | `PUT /appointment/{uuid}` | `DELETE /appointment/{uuid}` |
 | `GET /appointment/list`                         |                        |                           |                              |
 | `GET /appointment/list/?at-consultation={uuid}` |                        |                           |                              |
+
+## Implementation details
+
+### Integration with FCM and Hypertrack
+
+![integration_with_fcm_and_hypertrack](docs/diagrams/third_party_library_integration.svg)
