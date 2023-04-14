@@ -164,4 +164,4 @@ General guidlines:
 
 ### Integration with FCM and Hypertrack
 
-![integration_with_fcm_and_hypertrack](docs/diagrams/third_party_library_integration.svg)
+![integration_with_fcm_and_hypertrack](docs/diagrams/third_party_library_integration.png)
