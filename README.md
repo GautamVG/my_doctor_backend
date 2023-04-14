@@ -120,28 +120,21 @@ General guidlines:
 
 ### `/doctor`: Represents the `Doctor` resource
 
-| (GET) Read requests                          |                                                                                        |
-| -------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `GET /doctor/{uuid}`                         | Returns a `Doctor` object with the UUID                                                |
-| `GET /doctor/list`                           | Returns an array of `Doctor` objects                                                   |
-| `GET /doctor/list/?belongs-to-clinic={uuid}` | Returns an array of `Doctor` objects that belong to the clinic with the specified UUID |
-
-| (POST) Create requests |                                                                                                                                                  |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `POST /doctor`         | Creates a doctor resource. Expects a `Doctor` object (without the UUID) in the request body. Returns the created `Doctor` object (with the UUID) |
-
-| (PUT) Update requests |                                                                                                                              |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `PUT /doctor/{uuid}`  | Updates a doctor resource. Expects fields from the `Doctor` object in the request body. Returns the updated `Doctor` object. |
-
-| (DELETE) Delete requests |                                       |
-| ------------------------ | ------------------------------------- |
-| `DELETE /doctor/{uuid}`  | Deletes the specified doctor resource |
-
-| Functions             |                                                                                                                                                                                                                                                                                       |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `POST /doctor/login`  | Expects a `DoctorLoginAttempt` object in request body. Returns a `DoctorLoginResponse` object. Since authentication is not implemented currently, only validity of the login credentials is checked. In the future, an auth token could be added to the `DoctorLoginResponse` object. |
-| `POST /doctor/logout` | Since authentication is not implemented currently, this method does not do anything.                                                                                                                                                                                                  |
+|                                              |                                                                                                                                                                                                                                                                                       |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **(GET) Read requests**                      |                                                                                                                                                                                                                                                                                       |
+| `GET /doctor/{uuid}`                         | Returns a `Doctor` object with the UUID                                                                                                                                                                                                                                               |
+| `GET /doctor/list`                           | Returns an array of `Doctor` objects                                                                                                                                                                                                                                                  |
+| `GET /doctor/list/?belongs-to-clinic={uuid}` | Returns an array of `Doctor` objects that belong to the clinic with the specified UUID                                                                                                                                                                                                |
+| **(POST) Create requests**                   |                                                                                                                                                                                                                                                                                       |
+| `POST /doctor`                               | Creates a doctor resource. Expects a `Doctor` object (without the UUID) in the request body. Returns the created `Doctor` object (with the UUID)                                                                                                                                      |
+| **(PUT) Update requests**                    |                                                                                                                                                                                                                                                                                       |
+| `PUT /doctor/{uuid}`                         | Updates a doctor resource. Expects fields from the `Doctor` object in the request body. Returns the updated `Doctor` object.                                                                                                                                                          |
+| **(DELETE) Delete requests**                 |                                                                                                                                                                                                                                                                                       |
+| `DELETE /doctor/{uuid}`                      | Deletes the specified doctor resource                                                                                                                                                                                                                                                 |
+| **Functions**                                |                                                                                                                                                                                                                                                                                       |
+| `POST /doctor/login`                         | Expects a `DoctorLoginAttempt` object in request body. Returns a `DoctorLoginResponse` object. Since authentication is not implemented currently, only validity of the login credentials is checked. In the future, an auth token could be added to the `DoctorLoginResponse` object. |
+| `POST /doctor/logout`                        | Since authentication is not implemented currently, this method does not do anything.                                                                                                                                                                                                  |
 
 ### `/clinic`: Represents the `Clinic` resource
 
