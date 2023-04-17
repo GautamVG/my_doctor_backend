@@ -7,7 +7,7 @@ import log from './middleware/log'
 import log_error from './middleware/log_error'
 
 // Router and error handler
-import router from './router'
+import router from './routes'
 import error_handler from './error_handler'
 
 // Express app instance
