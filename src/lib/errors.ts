@@ -1,21 +1,23 @@
 export class HttpError {
 	code: number
 	msg: string
+	data?: Object
 
-	constructor(code: number, msg: string) {
+	constructor(code: number, msg: string, data?: Object) {
 		this.code = code
 		this.msg = msg
+		this.data = data
 	}
 }
 
 export class InternalServerError extends HttpError {
-	constructor(code = 500, msg: string) {
+	constructor(code: number, msg: string, data?: Object) {
 		super(code, msg)
 	}
 }
 
 export class ClientError extends HttpError {
-	constructor(code = 404, msg: string) {
+	constructor(code: number, msg: string, data?: Object) {
 		super(code, msg)
 	}
 }
