@@ -12,12 +12,12 @@ export class HttpError {
 
 export class InternalServerError extends HttpError {
 	constructor(code: number, msg: string, data?: Object) {
-		super(code, msg)
+		super(code, msg, data)
 	}
 }
 
 export class ClientError extends HttpError {
 	constructor(code: number, msg: string, data?: Object) {
-		super(code, msg)
+		super(code, msg, data)
 	}
 }
