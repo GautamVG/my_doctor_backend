@@ -3,6 +3,9 @@ import isUUID from 'validator/lib/isUUID'
 
 import { QueryParamValidationOptions } from '../../types'
 
+// Models
+import Doctor from '../../models/doctor'
+
 export const query_param_validation_options: QueryParamValidationOptions = [
 	{
 		name: 'belongs-to-clinic',
@@ -16,6 +19,7 @@ export const query_param_validation_options: QueryParamValidationOptions = [
 	},
 ]
 
-export const controller: RequestHandler = (req, res) => {
-	res.json({ hello: 'world' })
+export const controller: RequestHandler = async (req, res) => {
+	const doctors = await Doctor.findAll()
+	res.json(doctors)
 }
