@@ -4,7 +4,6 @@ import { type RequestHandler } from 'express'
 import Doctor from '../../models/doctor'
 
 export const controller: RequestHandler = async (req, res, next) => {
-	console.log(req.body)
 	try {
 		const doctor = await Doctor.create(req.body)
 		res.json(doctor)
