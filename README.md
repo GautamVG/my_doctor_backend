@@ -64,10 +64,8 @@ interface Clinic {
 	uuid: string
 	name: string
 	address: string
-	geolocation: {
-		lat: number // float
-		long: number // float
-	}
+	lat: number // float
+	long: number // float
 }
 ```
 
