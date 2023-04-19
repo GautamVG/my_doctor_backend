@@ -29,6 +29,8 @@ function validate_url_params(options: UrlParamValidationOptions) {
 				'URL parameters were invalid',
 				validation_err_msgs!
 			)
+
+		next()
 	}
 
 	return middleware
