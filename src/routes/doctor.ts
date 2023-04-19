@@ -10,15 +10,15 @@ import * as doctor from '../controllers/doctor'
 const doctor_router = Router()
 
 doctor_router.get(
-	'/:uuid',
-	validate_url_params(doctor.read.url_param_validation_options),
-	doctor.read.controller
-)
-
-doctor_router.get(
 	'/list',
 	validate_query_params(doctor.list.query_param_validation_options),
 	doctor.list.controller
+)
+
+doctor_router.get(
+	'/:uuid',
+	validate_url_params(doctor.read.url_param_validation_options),
+	doctor.read.controller
 )
 
 doctor_router.post('/', doctor.create.controller)
