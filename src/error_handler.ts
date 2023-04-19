@@ -16,7 +16,10 @@ const error_handler: ErrorRequestHandler = (err, req, res, next) => {
 		}
 		res.status(err.code).json(response)
 	} else
-		res.status(500).json({ msg: 'Internal server error. Contact admin.' })
+		res.status(500).json({
+			msg: 'Internal server error. Contact admin.',
+			data: err,
+		})
 }
 
 export default error_handler
