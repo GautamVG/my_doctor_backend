@@ -28,7 +28,6 @@ function validate_query_params(options: QueryParamValidationOptions) {
 		let validation_err_msgs: Record<string, Array<string>> = {}
 		options.forEach(param => {
 			if (!req.query.hasOwnProperty(param.name)) return
-			console.log(req.query)
 			const err_msgs = param.validations
 				.filter(
 					validation => !validation.passing(req.query[param.name])
