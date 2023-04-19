@@ -17,7 +17,7 @@ const app = express()
 app.use(cors())
 
 // All request payloads are parsed as JSON
-app.use(express.json())
+app.use(express.json({ limit: '50mb' }))
 
 // Logging
 app.use(log)
