@@ -23,11 +23,11 @@ const logger_transports: Array<transport> = [
 ]
 
 if (!is_prod()) {
-	logger_transports.push(
-		new transports.Console({
-			level: 'debug',
-		})
-	)
+	// logger_transports.push(
+	// 	new transports.Console({
+	// 		level: 'debug',
+	// 	})
+	// )
 	logger_transports.push(
 		new transports.File({
 			level: 'debug',
