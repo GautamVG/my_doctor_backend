@@ -52,6 +52,7 @@ interface DoctorLoginResponse {
 interface Doctor {
 	uuid: string
 	email: string
+	password: string // Will be 'hidden' on GET requests
 	name: string
 	photo: string // URL in base64 encoding
 	medical_certificate: string // URL in base64 encoding
