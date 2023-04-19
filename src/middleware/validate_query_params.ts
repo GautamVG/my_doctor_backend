@@ -12,7 +12,7 @@ function validate_query_params(options: QueryParamValidationOptions) {
 		const missing_params = options
 			.filter(
 				option =>
-					!option.optional && !req.params.hasOwnProperty(option.name)
+					!option.optional && !req.query.hasOwnProperty(option.name)
 			)
 			.map(option => option.name)
 
@@ -27,10 +27,10 @@ function validate_query_params(options: QueryParamValidationOptions) {
 		let valid = true
 		let validation_err_msgs: Record<string, Array<string>> = {}
 		options.forEach(param => {
-			if (!req.params.hasOwnProperty(param.name)) return
+			if (!req.query.hasOwnProperty(param.name)) return
 			const err_msgs = param.validations
 				.filter(
-					validation => !validation.passing(req.params[param.name])
+					validation => !validation.passing(req.query[param.name])
 				)
 				.map(validation => validation.failing_msg)
 			if (err_msgs.length != 0) {

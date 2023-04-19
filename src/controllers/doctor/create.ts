@@ -1,12 +1,11 @@
 import { type RequestHandler } from 'express'
 import isUUID from 'validator/lib/isUUID'
 
-import { type QueryParamValidationOptions } from '../../types'
+import { type UrlParamValidationOptions } from '../../types'
 
-export const query_param_validation_options: QueryParamValidationOptions = [
+export const url_param_validation_options: UrlParamValidationOptions = [
 	{
 		name: 'uuid',
-		optional: false,
 		validations: [
 			{
 				passing: isUUID,

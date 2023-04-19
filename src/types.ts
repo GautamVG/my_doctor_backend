@@ -8,3 +8,10 @@ export type QueryParamValidationOptions = Array<{
 	optional: boolean
 	validations: Array<QueryParamValidationRule>
 }>
+
+export interface UrlParamValidationRule extends QueryParamValidationRule {}
+
+export type UrlParamValidationOptions = Array<{
+	name: string
+	validations: Array<UrlParamValidationRule>
+}>
