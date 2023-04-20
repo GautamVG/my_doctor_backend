@@ -21,7 +21,7 @@ Appointment.init(
 				key: 'uuid',
 			},
 		},
-		fcm_registration_key: {
+		fcm_registration_token: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
