@@ -4,3 +4,4 @@ logs
 
 .env
 *.db
+google_service_account.json
