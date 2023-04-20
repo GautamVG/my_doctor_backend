@@ -47,16 +47,25 @@ export const controller: RequestHandler = async (req, res, next) => {
 			],
 		}
 
-		const response = await fetch(
-			'https://v3.api.hypertrack.com/orders/track',
+		await fetch(
+			`https://v3.api.hypertrack.com/devices/${appointment.getDataValue(
+				'hypertrack_device_id'
+			)}/start`,
 			{
 				method: 'POST',
 				headers: {
 					Authorization: auth,
 				},
-				body: JSON.stringify(payload),
 			}
 		)
+
+		await fetch('https://v3.api.hypertrack.com/orders/track', {
+			method: 'POST',
+			headers: {
+				Authorization: auth,
+			},
+			body: JSON.stringify(payload),
+		})
 
 		// console.log('Tracking started successfully')
 		// console.log(await response.json())
