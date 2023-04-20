@@ -1,7 +1,11 @@
 import { type RequestHandler } from 'express'
-import Doctor from '../../models/doctor'
 import { ClientError } from '../../lib/errors'
 import { compareSync } from 'bcrypt'
+
+// Models
+import Doctor from '../../models/doctor'
+
+import { type DoctorLoginResponse } from '../../types'
 
 export const controller: RequestHandler = async (req, res, next) => {
 	const fields = ['email', 'password']
@@ -17,14 +21,24 @@ export const controller: RequestHandler = async (req, res, next) => {
 			},
 		})
 
-		if (doctor == null) next(new ClientError(404, 'Email not found'))
-		else {
-			const hashed_pwd = doctor.getDataValue('password')
-			doctor.set('password', 'hidden', { raw: true })
-			const match = compareSync(req.body.password, hashed_pwd)
-			if (!match) next(new ClientError(402, 'Incorrect password'))
-			else res.send(doctor)
+		let response: DoctorLoginResponse = {
+			success: false,
+			reason: 'EMAIL_NON_EXISTENT',
 		}
+
+		if (doctor != null) {
+			const hashed_pwd = doctor.getDataValue('password')
+
+			const match = compareSync(req.body.password, hashed_pwd)
+			if (!match) response.reason = 'WRONG_PASS'
+			else {
+				doctor.set('password', 'hidden', { raw: true })
+				response.success = true
+				response.reason = undefined
+			}
+		}
+
+		res.send(doctor)
 	} catch (e) {
 		next(e)
 	}

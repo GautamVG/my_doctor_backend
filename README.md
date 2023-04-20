@@ -37,14 +37,14 @@ npm start
 ```ts
 interface DoctorLoginAttempt {
 	email: string
-	pass: string
+	password: string
 }
 ```
 
 ```ts
 interface DoctorLoginResponse {
 	success: boolean
-	reason: 'EMAIL_NON_EXISTENT' | 'WRONG_EMAIL' | 'WRONG_PASS'
+	reason?: 'EMAIL_NON_EXISTENT' | 'WRONG_PASS'
 }
 ```
 
@@ -54,8 +54,8 @@ interface Doctor {
 	email: string
 	password: string // Will be 'hidden' on GET requests
 	name: string
-	photo: string // URL in base64 encoding
-	medical_certificate: string // URL in base64 encoding
+	photo: string // Image in base64 encoding
+	medical_certificate: string // Image in base64 encoding
 }
 ```
 
