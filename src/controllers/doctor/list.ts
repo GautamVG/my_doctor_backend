@@ -31,6 +31,7 @@ export const controller: RequestHandler = async (req, res) => {
 				clinic_uuid: req.query['belongs-to-clinic'],
 			},
 		})
+
 		const doctor_uuids = consultations.map(consultation =>
 			consultation.getDataValue('doctor_uuid')
 		)
@@ -40,6 +41,11 @@ export const controller: RequestHandler = async (req, res) => {
 		}
 	}
 
-	const doctors = await Doctor.findAll({ where: filters })
+	const doctors = await Doctor.findAll({
+		attributes: {
+			exclude: ['password'],
+		},
+		where: filters,
+	})
 	res.json(doctors)
 }

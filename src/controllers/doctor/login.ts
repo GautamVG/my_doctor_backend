@@ -20,9 +20,10 @@ export const controller: RequestHandler = async (req, res, next) => {
 		if (doctor == null) next(new ClientError(404, 'Email not found'))
 		else {
 			const hashed_pwd = doctor.getDataValue('password')
+			doctor.set('password', 'hidden', { raw: true })
 			const match = compareSync(req.body.password, hashed_pwd)
 			if (!match) next(new ClientError(402, 'Incorrect password'))
-			else res.sendStatus(200)
+			else res.send(doctor)
 		}
 	} catch (e) {
 		next(e)
