@@ -32,7 +32,28 @@ export const controller: RequestHandler = async (req, res, next) => {
 			orders: [
 				{
 					order_handle: appointment.getDataValue('uuid'),
-					scheduled_at: '2023-04-29T23:50:00Z',
+					scheduled_at: '2023-05-29T23:50:00Z',
+					destination: {
+						geometry: {
+							type: 'Point',
+							coordinates: [
+								clinic!.getDataValue('lat'),
+								clinic!.getDataValue('long'),
+							],
+						},
+						radius: 50,
+					},
+				},
+			],
+		}
+
+		const payload2 = {
+			ops_group_handle: appointment.getDataValue('uuid'),
+			device_id: appointment.getDataValue('hypertrack_device_id'),
+			orders: [
+				{
+					order_handle: appointment.getDataValue('uuid'),
+					scheduled_at: '2023-05-29T23:50:00Z',
 					destination: {
 						geometry: {
 							type: 'Point',
@@ -58,6 +79,14 @@ export const controller: RequestHandler = async (req, res, next) => {
 				},
 			}
 		)
+
+		await fetch(`https://v3.api.hypertrack.com/orders/estimate`, {
+			method: 'POST',
+			headers: {
+				Authorization: auth,
+			},
+			body: JSON.stringify(payload),
+		})
 
 		await fetch('https://v3.api.hypertrack.com/orders/track', {
 			method: 'POST',
