@@ -80,13 +80,19 @@ export const controller: RequestHandler = async (req, res, next) => {
 			}
 		)
 
-		await fetch(`https://v3.api.hypertrack.com/orders/estimate`, {
-			method: 'POST',
-			headers: {
-				Authorization: auth,
-			},
-			body: JSON.stringify(payload),
-		})
+		const response = await fetch(
+			`https://v3.api.hypertrack.com/orders/estimate`,
+			{
+				method: 'POST',
+				headers: {
+					Authorization: auth,
+				},
+				body: JSON.stringify(payload),
+			}
+		)
+
+		console.log('From order estimate: ')
+		console.log(await response.json())
 
 		await fetch('https://v3.api.hypertrack.com/orders/track', {
 			method: 'POST',
