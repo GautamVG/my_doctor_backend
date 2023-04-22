@@ -5,6 +5,7 @@ import Doctor from './doctor'
 import Clinic from './clinic'
 import Consultation from './consultation'
 import Appointment from './appointment'
+import Patient from './patient'
 
 // Creating associations between models
 Doctor.belongsToMany(Clinic, {
@@ -25,6 +26,14 @@ Consultation.hasMany(Appointment, {
 
 Appointment.belongsTo(Consultation, {
 	foreignKey: 'consultation_uuid',
+})
+
+Patient.hasMany(Appointment, {
+	foreignKey: 'patient_uuid',
+})
+
+Appointment.belongsTo(Patient, {
+	foreignKey: 'patient_uuid',
 })
 
 export async function sync() {
@@ -57,6 +66,24 @@ export async function populate() {
 		name: 'Chintan',
 		photo: img,
 		medical_certificate: img,
+	})
+
+	const patient1 = await Patient.create({
+		email: 'shaan@gmail.com',
+		password: 'shaan123',
+		name: 'Shaan',
+		phone: '123456789',
+		gender: 'M',
+		dob: '13/03/2002',
+	})
+
+	const patient2 = await Patient.create({
+		email: 'kk@gmail.com',
+		password: 'kk123',
+		name: 'KK',
+		phone: '123456789',
+		gender: 'M',
+		dob: '13/03/2002',
 	})
 
 	const clinic1 = await Clinic.create({

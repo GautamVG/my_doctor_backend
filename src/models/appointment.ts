@@ -2,6 +2,7 @@ import { DataTypes, Model } from 'sequelize'
 
 import sequelize from './sequelize'
 import Consultation from './consultation'
+import Patient from './patient'
 
 class Appointment extends Model {}
 
@@ -32,6 +33,14 @@ Appointment.init(
 		rank: {
 			type: DataTypes.NUMBER,
 			allowNull: false,
+		},
+		patient_uuid: {
+			type: DataTypes.UUID,
+			allowNull: false,
+			references: {
+				model: Patient,
+				key: 'uuid',
+			},
 		},
 	},
 	{

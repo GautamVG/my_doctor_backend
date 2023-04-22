@@ -22,6 +22,12 @@ export interface DoctorLoginResponse {
 	data?: any // Doctor interface
 }
 
+export interface PatientLoginResponse {
+	success: boolean
+	reason?: 'EMAIL_NON_EXISTENT' | 'WRONG_PASS'
+	data?: any // Patient interface
+}
+
 export interface QueueStatus {
 	// all fields are numbers that need to parsed from strings
 	size: string

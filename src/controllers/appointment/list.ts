@@ -3,15 +3,25 @@ import isUUID from 'validator/lib/isUUID'
 
 // Models
 import Appointment from '../../models/appointment'
+import Consultation from '../../models/consultation'
 
 // Types
 import { QueryParamValidationOptions } from '../../types'
 import { type RequestHandler } from 'express'
-import Consultation from '../../models/consultation'
 
 export const query_param_validation_options: QueryParamValidationOptions = [
 	{
 		name: 'at-consultation',
+		optional: true,
+		validations: [
+			{
+				passing: isUUID,
+				failing_msg: 'The UUID is invalid',
+			},
+		],
+	},
+	{
+		name: 'with-patient',
 		optional: true,
 		validations: [
 			{
@@ -38,6 +48,9 @@ export const controller: RequestHandler = async (req, res) => {
 
 	if (req.query.hasOwnProperty('at-consultation'))
 		filters['consultation_uuid'] = req.query['at-consultation']
+
+	if (req.query.hasOwnProperty('with-patient'))
+		filters['patient_uuid'] = req.query['with-patient']
 
 	if (req.query.hasOwnProperty('extended'))
 		include_options = [{ model: Consultation }]

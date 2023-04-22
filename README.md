@@ -50,6 +50,21 @@ interface DoctorLoginResponse {
 ```
 
 ```ts
+interface PatientLoginAttempt {
+	email: string
+	password: string
+}
+```
+
+```ts
+interface PatientLoginResponse {
+	success: boolean
+	reason?: 'EMAIL_NON_EXISTENT' | 'WRONG_PASS'
+	data?: Patient // If succesful login
+}
+```
+
+```ts
 interface Doctor {
 	uuid: string
 	email: string
@@ -138,6 +153,13 @@ General guidlines:
 | **Functions**                                |                                                                                                                                                                                                                                                                                       |
 | `POST /doctor/login`                         | Expects a `DoctorLoginAttempt` object in request body. Returns a `DoctorLoginResponse` object. Since authentication is not implemented currently, only validity of the login credentials is checked. In the future, an auth token could be added to the `DoctorLoginResponse` object. |
 | `POST /doctor/logout`                        | Since authentication is not implemented currently, this method does not do anything.                                                                                                                                                                                                  |
+
+### `/patient`: Represents the `Patient` resource
+
+| (GET) Read requests                | (POST) Create requests | (PUT) Update requests | (DELETE) Delete requests | Functions              |
+| ---------------------------------- | ---------------------- | --------------------- | ------------------------ | ---------------------- |
+| `GET /patient/{uuid}`              | `POST /patient`        | `PUT /patient/{uuid}` | `DELETE /patient/{uuid}` | `POST /patient/login`  |
+| `GET /patient/list/?extended=true` |                        |                       |                          | `POST /patient/logout` |
 
 ### `/clinic`: Represents the `Clinic` resource
 
