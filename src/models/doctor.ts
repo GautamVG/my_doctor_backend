@@ -27,6 +27,9 @@ Doctor.init(
 				const hashed_pwd = hashSync(value, 3)
 				this.setDataValue('password', hashed_pwd)
 			},
+			get() {
+				return 'hidden'
+			},
 		},
 		name: {
 			type: DataTypes.STRING,

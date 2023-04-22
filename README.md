@@ -45,6 +45,7 @@ interface DoctorLoginAttempt {
 interface DoctorLoginResponse {
 	success: boolean
 	reason?: 'EMAIL_NON_EXISTENT' | 'WRONG_PASS'
+	data?: Doctor // If succesful login
 }
 ```
 

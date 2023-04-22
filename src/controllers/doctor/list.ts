@@ -42,9 +42,6 @@ export const controller: RequestHandler = async (req, res) => {
 	}
 
 	const doctors = await Doctor.findAll({
-		attributes: {
-			exclude: ['password'],
-		},
 		where: filters,
 	})
 	res.json(doctors)

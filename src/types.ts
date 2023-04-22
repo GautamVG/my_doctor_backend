@@ -19,6 +19,7 @@ export type UrlParamValidationOptions = Array<{
 export interface DoctorLoginResponse {
 	success: boolean
 	reason?: 'EMAIL_NON_EXISTENT' | 'WRONG_PASS'
+	data?: any // Doctor interface
 }
 
 export interface QueueStatus {

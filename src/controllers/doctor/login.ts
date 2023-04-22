@@ -32,13 +32,13 @@ export const controller: RequestHandler = async (req, res, next) => {
 			const match = compareSync(req.body.password, hashed_pwd)
 			if (!match) response.reason = 'WRONG_PASS'
 			else {
-				doctor.set('password', 'hidden', { raw: true })
 				response.success = true
 				response.reason = undefined
+				response.data = doctor
 			}
 		}
 
-		res.send(doctor)
+		res.json(response)
 	} catch (e) {
 		next(e)
 	}

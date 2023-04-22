@@ -19,11 +19,7 @@ export const url_param_validation_options: UrlParamValidationOptions = [
 
 export const controller: RequestHandler = async (req, res, next) => {
 	try {
-		const doctor = await Doctor.findByPk(req.params.uuid, {
-			attributes: {
-				exclude: ['password'],
-			},
-		})
+		const doctor = await Doctor.findByPk(req.params.uuid)
 
 		if (doctor == null) {
 			const err = new ClientError(404, 'No doctor found')
