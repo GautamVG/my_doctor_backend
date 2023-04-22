@@ -1,12 +1,11 @@
 import dotenv from 'dotenv'
+dotenv.config()
+
 import { initializeApp, applicationDefault } from 'firebase-admin/app'
 
 import server from './server'
 import logger from './lib/logger'
 import * as db from './models/init'
-
-// Loading environment variables
-dotenv.config()
 
 // Initialize Firebase Admin SDK
 initializeApp({ credential: applicationDefault() })
