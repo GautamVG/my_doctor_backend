@@ -20,3 +20,11 @@ export interface DoctorLoginResponse {
 	success: boolean
 	reason?: 'EMAIL_NON_EXISTENT' | 'WRONG_PASS'
 }
+
+export interface QueueStatus {
+	// all fields are numbers that need to parsed from strings
+	size: string
+	position: string
+	leave_in: string // time duration in seconds
+	eta: string // time duration in seconds
+}

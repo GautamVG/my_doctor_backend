@@ -29,6 +29,10 @@ Appointment.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		rank: {
+			type: DataTypes.NUMBER,
+			allowNull: false,
+		},
 	},
 	{
 		sequelize,

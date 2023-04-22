@@ -93,9 +93,11 @@ interface Appointment {
 ```ts
 // This object is sent by the Cloud Messaging module from the backend to the client
 interface QueueStatus {
-	size: number
-	position: number
-	eta: number // time in seconds;
+	// all fields are numbers that need to parsed from strings
+	size: string
+	position: string
+	leave_in: string // time duration in seconds
+	eta: string // time duration in seconds
 }
 ```
 
