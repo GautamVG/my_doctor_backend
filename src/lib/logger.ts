@@ -13,7 +13,10 @@ const extension = '.log'
 
 const logger_level = is_prod() ? 'info' : 'debug'
 
-const logger_format = format.combine(format.colorize(), format.json())
+const logger_format = format.combine(
+	format.timestamp(),
+	format.json({ space: 4 })
+)
 
 const logger_transports: Array<transport> = [
 	new transports.File({
@@ -23,11 +26,11 @@ const logger_transports: Array<transport> = [
 ]
 
 if (!is_prod()) {
-	// logger_transports.push(
-	// 	new transports.Console({
-	// 		level: 'debug',
-	// 	})
-	// )
+	logger_transports.push(
+		new transports.Console({
+			level: 'debug',
+		})
+	)
 	logger_transports.push(
 		new transports.File({
 			level: 'debug',
