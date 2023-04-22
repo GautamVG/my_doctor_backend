@@ -2,6 +2,8 @@ import { DataTypes, Model } from 'sequelize'
 import { hashSync } from 'bcrypt'
 
 import sequelize from './sequelize'
+import Clinic from './clinic'
+import Consultation from './consultation'
 
 class Doctor extends Model {}
 

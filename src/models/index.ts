@@ -6,6 +6,27 @@ import Clinic from './clinic'
 import Consultation from './consultation'
 import Appointment from './appointment'
 
+// Creating associations between models
+Doctor.belongsToMany(Clinic, {
+	through: Consultation,
+	foreignKey: 'doctor_uuid',
+	uniqueKey: undefined,
+})
+
+Clinic.belongsToMany(Doctor, {
+	through: Consultation,
+	foreignKey: 'clinic_uuid',
+	uniqueKey: undefined,
+})
+
+Consultation.hasMany(Appointment, {
+	foreignKey: 'consultation_uuid',
+})
+
+Appointment.belongsTo(Consultation, {
+	foreignKey: 'consultation_uuid',
+})
+
 export async function sync() {
 	await sequelize.sync({ force: true })
 }

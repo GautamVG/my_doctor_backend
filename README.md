@@ -128,6 +128,7 @@ General guidlines:
 | `GET /doctor/{uuid}`                         | Returns a `Doctor` object with the UUID                                                                                                                                                                                                                                               |
 | `GET /doctor/list`                           | Returns an array of `Doctor` objects                                                                                                                                                                                                                                                  |
 | `GET /doctor/list/?belongs-to-clinic={uuid}` | Returns an array of `Doctor` objects that belong to the clinic with the specified UUID                                                                                                                                                                                                |
+| `GET /doctor/list/?extended=true`            | Returns an array of `Doctor` objects, each with a `Clinics` array and each Clinic with a `Consultation`                                                                                                                                                                               |
 | **(POST) Create requests**                   |                                                                                                                                                                                                                                                                                       |
 | `POST /doctor`                               | Creates a doctor resource. Expects a `Doctor` object (without the UUID) in the request body. Returns the created `Doctor` object (with the UUID)                                                                                                                                      |
 | **(PUT) Update requests**                    |                                                                                                                                                                                                                                                                                       |
@@ -140,27 +141,25 @@ General guidlines:
 
 ### `/clinic`: Represents the `Clinic` resource
 
-| (GET) Read requests                   | (POST) Create requests | (PUT) Update requests | (DELETE) Delete requests |
-| ------------------------------------- | ---------------------- | --------------------- | ------------------------ |
-| `GET /clinic/{uuid}`                  | `POST /clinic`         | `PUT /clinic/{uuid}`  | `DELETE /clinic/{uuid}`  |
-| `GET /clinic/list`                    |                        |                       |                          |
-| `GET /clinic/list/?has-doctor={uuid}` |                        |                       |                          |
+| (GET) Read requests                                 | (POST) Create requests | (PUT) Update requests | (DELETE) Delete requests |
+| --------------------------------------------------- | ---------------------- | --------------------- | ------------------------ |
+| `GET /clinic/{uuid}`                                | `POST /clinic`         | `PUT /clinic/{uuid}`  | `DELETE /clinic/{uuid}`  |
+| `GET /clinic/list/?has-doctor={uuid}&extended=true` |                        |                       |                          |
 
 ### `/consultation`: Represents the `Consultation` resource
 
-| (GET) Read requests                                                         | (POST) Create requests | (PUT) Update requests      | (DELETE) Delete requests      |
-| --------------------------------------------------------------------------- | ---------------------- | -------------------------- | ----------------------------- |
-| `GET /consultation/{uuid}`                                                  | `POST /consultation`   | `PUT /consultation/{uuid}` | `DELETE /consultation/{uuid}` |
-| `GET /consultation/list`                                                    |                        |                            |                               |
-| `GET /consultation/list/?at-clinic={clinic_uuid}&with-doctor={doctor_uuid}` |                        |                            |                               |
+| (GET) Read requests                                                                       | (POST) Create requests | (PUT) Update requests      | (DELETE) Delete requests      |
+| ----------------------------------------------------------------------------------------- | ---------------------- | -------------------------- | ----------------------------- |
+| `GET /consultation/{uuid}`                                                                | `POST /consultation`   | `PUT /consultation/{uuid}` | `DELETE /consultation/{uuid}` |
+| `GET /consultation/list/?at-clinic={clinic_uuid}&with-doctor={doctor_uuid}&extended=true` |                        |                            |                               |
 
 ### `/appointment`: Represents the `Appointment` resource
 
-| (GET) Read requests                             | (POST) Create requests | (PUT) Update requests     | (DELETE) Delete requests     |
-| ----------------------------------------------- | ---------------------- | ------------------------- | ---------------------------- |
-| `GET /appointment/{uuid}`                       | `POST /appointment`    | `PUT /appointment/{uuid}` | `DELETE /appointment/{uuid}` |
-| `GET /appointment/list`                         |                        |                           |                              |
-| `GET /appointment/list/?at-consultation={uuid}` |                        |                           |                              |
+| (GET) Read requests                                           | (POST) Create requests | (PUT) Update requests     | (DELETE) Delete requests     |
+| ------------------------------------------------------------- | ---------------------- | ------------------------- | ---------------------------- |
+| `GET /appointment/{uuid}`                                     | `POST /appointment`    | `PUT /appointment/{uuid}` | `DELETE /appointment/{uuid}` |
+| `GET /appointment/list`                                       |                        |                           |                              |
+| `GET /appointment/list/?at-consultation={uuid}&extended=true` |                        |                           |                              |
 
 ## Implementation details
 

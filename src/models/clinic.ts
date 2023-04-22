@@ -1,6 +1,8 @@
 import { DataTypes, Model } from 'sequelize'
 
 import sequelize from './sequelize'
+import Doctor from './doctor'
+import Consultation from './consultation'
 
 class Clinic extends Model {}
 
