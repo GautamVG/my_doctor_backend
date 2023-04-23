@@ -4,8 +4,19 @@ import logger from './logger'
 async function fcm_send_msg(data: any, token: string) {
 	const msg = { data, token }
 
+	const msg_with_notification = {
+		...msg,
+		notification: {
+			title: 'Your appointment from MyDoctor',
+			body: `You should leave in ${Math.round(
+				parseInt(data.leave_in) / 60
+			)} minutes`,
+		},
+	}
+
 	try {
 		await getMessaging().send(msg)
+		await getMessaging().send(msg_with_notification)
 		logger.debug('Sent msg: ' + msg)
 		return true
 	} catch (e) {
