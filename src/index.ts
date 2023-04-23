@@ -3,8 +3,8 @@ dotenv.config()
 
 import { initializeApp, applicationDefault } from 'firebase-admin/app'
 
-import server from './server'
 import logger from './lib/logger'
+import server from './server'
 import * as db from './models'
 
 // Initialize Firebase Admin SDK
