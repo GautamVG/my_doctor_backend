@@ -1,11 +1,25 @@
-import { DataTypes, Model } from 'sequelize'
+import {
+	CreationOptional,
+	DataTypes,
+	InferAttributes,
+	InferCreationAttributes,
+	Model,
+} from 'sequelize'
 import { hashSync } from 'bcrypt'
 
 import sequelize from './sequelize'
-import Clinic from './clinic'
-import Consultation from './consultation'
 
-class Doctor extends Model {}
+class Doctor extends Model<
+	InferAttributes<Doctor>,
+	InferCreationAttributes<Doctor>
+> {
+	declare uuid: CreationOptional<string>
+	declare email: string
+	declare password: string
+	declare name: string
+	declare photo: string
+	declare medical_certificate: string
+}
 
 Doctor.init(
 	{

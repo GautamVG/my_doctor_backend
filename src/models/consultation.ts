@@ -1,10 +1,16 @@
-import { DataTypes, Model } from 'sequelize'
+import { CreationOptional, DataTypes, ForeignKey, Model } from 'sequelize'
 
 import sequelize from './sequelize'
 import Doctor from './doctor'
 import Clinic from './clinic'
 
-class Consultation extends Model {}
+class Consultation extends Model {
+	declare uuid: CreationOptional<string>
+	declare doctor_uuid: ForeignKey<string>
+	declare clinic_uuid: ForeignKey<string>
+	declare start_time: string
+	declare end_time: string
+}
 
 Consultation.init(
 	{

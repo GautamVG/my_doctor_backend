@@ -1,10 +1,27 @@
-import { DataTypes, Model } from 'sequelize'
+import {
+	CreationOptional,
+	DataTypes,
+	ForeignKey,
+	InferAttributes,
+	InferCreationAttributes,
+	Model,
+} from 'sequelize'
 
 import sequelize from './sequelize'
 import Consultation from './consultation'
 import Patient from './patient'
 
-class Appointment extends Model {}
+class Appointment extends Model<
+	InferAttributes<Appointment>,
+	InferCreationAttributes<Appointment>
+> {
+	declare uuid: CreationOptional<string>
+	declare consultation_uuid: string
+	declare fcm_registration_token: string
+	declare hypertrack_device_id: string
+	declare rank: number | null
+	declare patient_uuid: ForeignKey<string>
+}
 
 Appointment.init(
 	{
@@ -31,8 +48,8 @@ Appointment.init(
 			allowNull: false,
 		},
 		rank: {
-			type: DataTypes.NUMBER,
-			allowNull: false,
+			type: DataTypes.INTEGER,
+			allowNull: true,
 		},
 		patient_uuid: {
 			type: DataTypes.UUID,
