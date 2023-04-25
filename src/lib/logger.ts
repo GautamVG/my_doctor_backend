@@ -23,14 +23,17 @@ const logger_transports: Array<transport> = [
 		level: 'error',
 		filename: path.join(root, log_folder, error_log_filename + extension),
 	}),
+	new transports.Console({
+		level: 'debug',
+	}),
 ]
 
 if (!is_prod()) {
-	logger_transports.push(
-		new transports.Console({
-			level: 'debug',
-		})
-	)
+	// logger_transports.push(
+	// 	new transports.Console({
+	// 		level: 'debug',
+	// 	})
+	// )
 	logger_transports.push(
 		new transports.File({
 			level: 'debug',
