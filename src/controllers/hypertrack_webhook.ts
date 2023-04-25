@@ -32,8 +32,8 @@ async function evaluate(payload: any) {
 			return
 		}
 
-		switch ([type, data['value']]) {
-			case ['route', 'estimate_generated']:
+		switch ([type, data['value']].join(':')) {
+			case 'route:estimate_generated':
 				route_estimate_generated(data, appointment)
 				break
 			default:
