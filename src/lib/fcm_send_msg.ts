@@ -17,7 +17,10 @@ async function fcm_send_msg(data: any, token: string) {
 	try {
 		await getMessaging().send(msg)
 		await getMessaging().send(msg_with_notification)
-		logger.debug('Sent msg: ' + msg)
+		logger.debug('Sent msg: ' + JSON.stringify(msg))
+		logger.debug(
+			'Sent notification msg: ' + JSON.stringify(msg_with_notification)
+		)
 		return true
 	} catch (e) {
 		logger.error('Could not send msg: ' + JSON.stringify(e))

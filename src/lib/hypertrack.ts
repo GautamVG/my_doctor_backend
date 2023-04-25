@@ -53,7 +53,6 @@ export async function estimate_order(
 	order_handle: string,
 	destination: [number, number]
 ) {
-	logger.debug('order_handle: ' + order_handle)
 	const payload = {
 		ops_group_handle: order_handle,
 		device_id,

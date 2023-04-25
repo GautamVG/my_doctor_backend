@@ -29,12 +29,8 @@ export const controller: RequestHandler = async (req, res, next) => {
 		res.json(appointment)
 
 		// Reading associated consultation to get associated clinic uuid
-
 		// @ts-ignore
 		const consultation: Consultation = await appointment.getConsultation()
-		// const consultation = await Consultation.findByPk(
-		// 	appointment.getDataValue('consultation_uuid')
-		// )
 
 		// Reading associated clinic to get destination coordinates
 		const clinic = await Clinic.findByPk(consultation.clinic_uuid)
@@ -44,27 +40,23 @@ export const controller: RequestHandler = async (req, res, next) => {
 				'consultation resource contained unknown clinic_uuid'
 			)
 
-		// Start tracking the order
-		// await start_order_tracking(
-		// 	appointment.getDataValue('hypertrack_device_id'),
-		// 	appointment.getDataValue('uuid'),
-		// 	[
-		// 		clinic!.getDataValue('lat'),
-		// 		clinic!.getDataValue('long')
-		// 	]
-		// )
+		const device_tracking_res = await start_device_tracking(
+			appointment.hypertrack_device_id
+		)
+		logger.debug(
+			`got device tracking res: ${JSON.stringify(device_tracking_res)}`
+		)
 
-		await create_ops_group(appointment.uuid)
-		// logger.debug(`got ops res: ${JSON.stringify(ops_res)}`)
+		const ops_res = await create_ops_group(appointment.uuid)
+		logger.debug(`got ops res: ${JSON.stringify(ops_res)}`)
 
 		// Estimate the travel duration to the destination
-		await estimate_order(
+		const estimate = await estimate_order(
 			appointment.hypertrack_device_id,
 			appointment.uuid,
 			[clinic.long, clinic.lat]
 		)
-
-		// logger.debug(`Got estimate: ${JSON.stringify(estimate)}`)
+		logger.debug(`Got estimate: ${JSON.stringify(estimate)}`)
 	} catch (e) {
 		next(e)
 	}
