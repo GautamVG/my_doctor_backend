@@ -25,6 +25,28 @@ export async function start_device_tracking(device_id: string) {
 	}
 }
 
+// export async function create_driver(device_id: string, order_handle: string) {
+// 	const payload = {
+// 		driver_handle: device_id,
+// 		ops_group_label: order_handle,
+// 		device_id: device_id,
+// 	}
+
+// 	try {
+// 		const res = await fetch(`https://v3.api.hypertrack.com/ops-groups`, {
+// 			method: 'POST',
+// 			headers: {
+// 				Authorization: auth,
+// 			},
+// 			body: JSON.stringify(payload),
+// 		})
+// 		return await res.json()
+// 	} catch (e) {
+// 		logger.error('Could not create ops group ' + JSON.stringify(e))
+// 		throw e
+// 	}
+// }
+
 export async function create_ops_group(order_handle: string) {
 	const payload = {
 		ops_group_handle: order_handle,
@@ -123,6 +145,43 @@ export async function start_order_tracking(
 		return await res.json()
 	} catch (e) {
 		logger.error('Could not start order tracking ' + JSON.stringify(e))
+		throw e
+	}
+}
+
+export async function create_trip(
+	device_id: string,
+	order_id: string,
+	destination: [number, number]
+) {
+	const payload = {
+		device_id,
+		orders: [
+			{
+				order_id,
+				route: 'fixed',
+				destination: {
+					geometry: {
+						type: 'Point',
+						coordinates: destination,
+					},
+					radius: 30,
+				},
+			},
+		],
+	}
+
+	try {
+		const res = await fetch(`https://v3.api.hypertrack.com/trips`, {
+			method: 'POST',
+			headers: {
+				Authorization: auth,
+			},
+			body: JSON.stringify(payload),
+		})
+		return await res.json()
+	} catch (e) {
+		logger.error('Could not create trip ' + JSON.stringify(e))
 		throw e
 	}
 }
