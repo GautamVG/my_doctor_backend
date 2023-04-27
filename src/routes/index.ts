@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import path from 'path'
 
 // Lib
 import { ClientError } from '../lib/errors'
@@ -21,6 +22,10 @@ index_router.use('/clinic', clinic_router)
 index_router.use('/consultation', consultation_router)
 index_router.use('/appointment', appointment_router)
 index_router.use('/hypertrack-webhook', hypertrack_webhook.controller)
+
+index_router.get('/logs', (req, res, next) => {
+	res.sendFile(path.join(__dirname, '../../logs/debug.log'))
+})
 
 index_router.get('*', (req, res) => {
 	throw new ClientError(404, 'Route not found')
