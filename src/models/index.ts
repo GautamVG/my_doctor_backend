@@ -108,7 +108,7 @@ export async function populate() {
 			doctor_uuid: doctor1.getDataValue('uuid'),
 			clinic_uuid: clinic1.getDataValue('uuid'),
 			start_time: '18:00:00',
-			end_time: '00:00:00',
+			end_time: '23:59:00',
 		}),
 
 		// Doctor 2 at Clinic 1
@@ -116,7 +116,7 @@ export async function populate() {
 			doctor_uuid: doctor2.getDataValue('uuid'),
 			clinic_uuid: clinic1.getDataValue('uuid'),
 			start_time: '20:00:00',
-			end_time: '00:00:00',
+			end_time: '23:00:00',
 		}),
 
 		// Doctor 3 at Clinic 2

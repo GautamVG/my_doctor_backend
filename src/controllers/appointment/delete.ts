@@ -1,11 +1,12 @@
 import { type RequestHandler } from 'express'
 import isUUID from 'validator/lib/isUUID'
 
-import { type UrlParamValidationOptions } from '../../types'
+import { FCMMessage, type UrlParamValidationOptions } from '../../types'
 import { ClientError } from '../../lib/errors'
 
 // Models
 import Appointment from '../../models/appointment'
+import fcm_send_msg from '../../lib/fcm_send_msg'
 
 export const url_param_validation_options: UrlParamValidationOptions = [
 	{
@@ -34,6 +35,21 @@ export const controller: RequestHandler = async (req, res, next) => {
 				appointments_in_the_queue.map(appointment_in_queue =>
 					appointment_in_queue.increment('rank')
 				)
+			)
+			await Promise.all(
+				appointments_in_the_queue.map(appointment_in_the_queue => {
+					const msg: FCMMessage = {
+						status: 'scheduled',
+						size: `${appointments_in_the_queue.length}`,
+						position: `${appointment_in_the_queue.rank! + 1}`,
+						eta: `${appointment_in_the_queue.eta}`,
+						etd: `${appointment_in_the_queue.etd}`,
+					}
+					return fcm_send_msg(
+						msg,
+						appointment_in_the_queue.hypertrack_device_id
+					)
+				})
 			)
 			res.sendStatus(200)
 		}

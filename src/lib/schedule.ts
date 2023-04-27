@@ -41,7 +41,10 @@ export function schedule(
 	let result: QueueStatus | false
 
 	if (queued_appointments.length == 0) {
-		const eta = DateTime.max(DateTime.now(), start_time)
+		const eta = DateTime.max(
+			DateTime.now().plus(patient_buffer_duration).plus(travel_duration),
+			start_time
+		)
 		if (eta > end_time) return false
 		const etd = eta.minus(travel_duration)
 		if (etd < DateTime.now()) return false
