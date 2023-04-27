@@ -8,6 +8,7 @@ import Consultation from '../../models/consultation'
 // Types
 import { QueryParamValidationOptions } from '../../types'
 import { type RequestHandler } from 'express'
+import Patient from '../../models/patient'
 
 export const query_param_validation_options: QueryParamValidationOptions = [
 	{
@@ -53,7 +54,7 @@ export const controller: RequestHandler = async (req, res) => {
 		filters['patient_uuid'] = req.query['with-patient']
 
 	if (req.query.hasOwnProperty('extended'))
-		include_options = [{ model: Consultation }]
+		include_options = [{ model: Consultation }, { model: Patient }]
 
 	const appointment = await Appointment.findAll({
 		where: filters,

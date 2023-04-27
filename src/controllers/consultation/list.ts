@@ -8,6 +8,7 @@ import Appointment from '../../models/appointment'
 // Types
 import { QueryParamValidationOptions } from '../../types'
 import { type RequestHandler } from 'express'
+import Patient from '../../models/patient'
 
 export const query_param_validation_options: QueryParamValidationOptions = [
 	{
@@ -40,6 +41,17 @@ export const query_param_validation_options: QueryParamValidationOptions = [
 			},
 		],
 	},
+	{
+		name: 'super-extended',
+		optional: true,
+		validations: [
+			{
+				passing: isBoolean,
+				failing_msg:
+					"Specify a boolean value for 'super-extended' query",
+			},
+		],
+	},
 ]
 
 export const controller: RequestHandler = async (req, res) => {
@@ -54,6 +66,9 @@ export const controller: RequestHandler = async (req, res) => {
 
 	if (req.query.hasOwnProperty('extended'))
 		include_options = [{ model: Appointment }]
+
+	if (req.query.hasOwnProperty('super-extended'))
+		include_options = [{ model: Appointment, include: [Patient] }]
 
 	const consultations = await Consultation.findAll({
 		where: filters,
