@@ -11,6 +11,8 @@ import { estimate_leaving_time } from '../lib/utils'
 
 // Types
 import { type QueueStatus } from '../types'
+import { schedule } from '../lib/schedule'
+import Consultation from '../models/consultation'
 
 export const controller: RequestHandler = async (req, res, next) => {
 	res.sendStatus(200)
@@ -39,7 +41,7 @@ async function evaluate(payload: any) {
 			// 	break
 
 			case 'order:first_eta':
-				order_first_eta_generated(data, appointment)
+				first_eta_generated(data, appointment)
 				break
 
 			default:
@@ -91,8 +93,8 @@ async function get_appointment_with_device_id(device_id: string) {
 // 	fcm_send_msg(msg, appointment.fcm_registration_token)
 // }
 
-async function order_first_eta_generated(data: any, appointment: Appointment) {
-	const count = await Appointment.count({
+async function first_eta_generated(data: any, appointment: Appointment) {
+	const appointments = await Appointment.findAll({
 		where: {
 			consultation_uuid: appointment.consultation_uuid,
 			rank: {
@@ -101,19 +103,50 @@ async function order_first_eta_generated(data: any, appointment: Appointment) {
 		},
 	})
 
-	await appointment.update({
-		rank: count + 1,
-	})
-
-	const travel_duration = data['remaining_duration']
-	const eta = count * 5 * 60
-
-	const msg: QueueStatus = {
-		size: `${count + 1}`,
-		position: `${count + 1}`,
-		eta: `${eta}`,
-		leave_in: `${estimate_leaving_time(travel_duration, eta)}`,
+	const consultation = await Consultation.findByPk(
+		appointment.consultation_uuid
+	)
+	if (consultation == null) {
+		logger.error(
+			`Invalid consultation uuid present in appointment resource with PK: ${appointment.uuid}`
+		)
+		return
 	}
 
-	fcm_send_msg(msg, appointment.fcm_registration_token)
+	// await appointment.update({
+	// 	rank: count + 1,
+	// })
+
+	const travel_duration = data['remaining_duration']
+	const queue_status = schedule(
+		travel_duration,
+		appointment,
+		appointments,
+		consultation
+	)
+	if (queue_status == false) {
+		fcm_send_msg(
+			{
+				scheduled: false,
+			},
+			appointment.fcm_registration_token
+		)
+		return
+	}
+	// const eta = count * 5 * 60
+
+	const queue_data = {
+		size: `${queue_status.size}`,
+		position: `${queue_status.position}`,
+		eta: `${queue_status.eta}`,
+		etd: `${queue_status.etd}`,
+	}
+
+	fcm_send_msg(
+		{
+			scheduled: true,
+			data: queue_data,
+		},
+		appointment.fcm_registration_token
+	)
 }

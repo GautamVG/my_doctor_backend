@@ -19,8 +19,9 @@ class Appointment extends Model<
 	declare consultation_uuid: string
 	declare fcm_registration_token: string
 	declare hypertrack_device_id: string
-	declare eta: Date
-	declare rank: number | null
+	declare eta: CreationOptional<string | null>
+	declare etd: CreationOptional<string | null>
+	declare rank: CreationOptional<number | null>
 	declare patient_uuid: ForeignKey<string>
 }
 
@@ -49,7 +50,11 @@ Appointment.init(
 			allowNull: false,
 		},
 		eta: {
-			type: DataTypes.DATE,
+			type: DataTypes.STRING,
+			allowNull: true,
+		},
+		etd: {
+			type: DataTypes.STRING,
 			allowNull: true,
 		},
 		rank: {

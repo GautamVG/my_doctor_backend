@@ -91,8 +91,8 @@ interface Consultation {
 	uuid: string
 	doctor_uuid: string
 	clinic_uuid: string
-	start_time: Time
-	end_time: Time
+	start_time: string
+	end_time: string
 }
 ```
 
@@ -103,17 +103,19 @@ interface Appointment {
 	consultation_uuid: string
 	fcm_registration_token: string // from firebase cloud messaging SDK
 	hypertrack_device_id: string // from hypertrack SDK
+	eta: string | null // Time in ISO format
+	etd: string | null // Time in ISO format
+	rank: number | null // position in queue
+	patient_uuid: string
 }
 ```
 
 ```ts
-// This object is sent by the Cloud Messaging module from the backend to the client
-interface QueueStatus {
-	// all fields are numbers that need to parsed from strings
+interface FCMMessage {
 	size: string
 	position: string
-	leave_in: string // time duration in seconds
-	eta: string // time duration in seconds
+	etd: string // Time in format "hh:mm:ss"
+	eta: string // Time in format "hh:mm:ss"
 }
 ```
 

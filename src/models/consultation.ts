@@ -37,11 +37,11 @@ Consultation.init(
 			},
 		},
 		start_time: {
-			type: DataTypes.TIME,
+			type: DataTypes.STRING,
 			allowNull: false,
 		},
 		end_time: {
-			type: DataTypes.TIME,
+			type: DataTypes.STRING,
 			allowNull: false,
 		},
 	},
