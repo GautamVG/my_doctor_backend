@@ -29,9 +29,18 @@ export interface PatientLoginResponse {
 }
 
 export interface QueueStatus {
-	// all fields are numbers that need to parsed from strings
-	size: string
-	position: string
-	leave_in: string // time duration in seconds
-	eta: string // time duration in seconds
+	size: number
+	position: number
+	etd: string // Time in format "hh:mm:ss"
+	eta: string // Time in format "hh:mm:ss"
+}
+
+export interface FCMMessage {
+	success: boolean
+	data: {
+		size: string
+		position: string
+		etd: string // Time in format "hh:mm:ss"
+		eta: string // Time in format "hh:mm:ss"
+	}
 }
