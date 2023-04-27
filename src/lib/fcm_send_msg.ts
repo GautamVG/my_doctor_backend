@@ -4,7 +4,7 @@ import logger from './logger'
 async function fcm_send_msg(data: any, token: string) {
 	const msg = {
 		data: {
-			data: JSON.stringify(data),
+			subtitle: JSON.stringify(data),
 		},
 		token,
 	}
@@ -19,11 +19,11 @@ async function fcm_send_msg(data: any, token: string) {
 
 	try {
 		await getMessaging().send(msg)
-		await getMessaging().send(msg_with_notification)
+		// await getMessaging().send(msg_with_notification)
 		logger.debug('Sent msg: ' + JSON.stringify(msg))
-		logger.debug(
-			'Sent notification msg: ' + JSON.stringify(msg_with_notification)
-		)
+		// logger.debug(
+		// 	'Sent notification msg: ' + JSON.stringify(msg_with_notification)
+		// )
 		return true
 	} catch (e) {
 		logger.error('Could not send msg: ' + JSON.stringify(e))
