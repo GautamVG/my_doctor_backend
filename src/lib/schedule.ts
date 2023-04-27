@@ -21,10 +21,10 @@ export function schedule(
 
 	const [start_hours, start_minutes, start_seconds] = consultation.start_time
 		.split(':')
-		.map(parseInt)
+		.map(c => parseInt(c))
 	const [end_hours, end_minutes, end_seconds] = consultation.end_time
 		.split(':')
-		.map(parseInt)
+		.map(c => parseInt(c))
 
 	const start_time = DateTime.now().set({
 		hour: start_hours,
@@ -41,8 +41,10 @@ export function schedule(
 	let result: QueueStatus | false
 
 	if (queued_appointments.length == 0) {
-		const eta = start_time
+		const eta = DateTime.max(DateTime.now(), start_time)
+		if (eta > end_time) return false
 		const etd = eta.minus(travel_duration)
+		if (etd < DateTime.now()) return false
 
 		new_appointment.set('rank', 1)
 		new_appointment.set('eta', eta.toISO()!)
@@ -51,12 +53,12 @@ export function schedule(
 		result = {
 			size: 1,
 			position: 1,
-			eta: eta.toFormat('HH`:`mm`:`ss'),
-			etd: etd.toFormat('HH`:`mm`:`ss'),
+			eta: eta.toFormat('HH:mm:ss'),
+			etd: etd.toFormat('HH:mm:ss'),
 		}
 	} else {
 		const queued_etas = queued_appointments.map(appointment =>
-			DateTime.fromISO(appointment.eta)
+			DateTime.fromISO(appointment.eta!)
 		)
 
 		const free_eta = queued_etas.find(
@@ -78,8 +80,8 @@ export function schedule(
 		result = {
 			size: queued_appointments.length + 1,
 			position: queued_appointments.length + 1,
-			eta: eta.toFormat('HH`:`mm`:`ss'),
-			etd: etd.toFormat('HH`:`mm`:`ss'),
+			eta: eta.toFormat('HH:mm:ss'),
+			etd: etd.toFormat('HH:mm:ss'),
 		}
 	}
 

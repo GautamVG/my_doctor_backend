@@ -112,10 +112,11 @@ interface Appointment {
 
 ```ts
 interface FCMMessage {
-	size: string
-	position: string
-	etd: string // Time in format "hh:mm:ss"
-	eta: string // Time in format "hh:mm:ss"
+	status: 'scheduled' | 'cancelled'
+	size?: string
+	position?: string
+	etd?: string // Time in format "hh:mm:ss"
+	eta?: string // Time in format "hh:mm:ss"
 }
 ```
 

@@ -7,10 +7,9 @@ import Appointment from '../models/appointment'
 // Lib
 import fcm_send_msg from '../lib/fcm_send_msg'
 import logger from '../lib/logger'
-import { estimate_leaving_time } from '../lib/utils'
 
 // Types
-import { type QueueStatus } from '../types'
+import { FCMMessage } from '../types'
 import { schedule } from '../lib/schedule'
 import Consultation from '../models/consultation'
 
@@ -113,10 +112,6 @@ async function first_eta_generated(data: any, appointment: Appointment) {
 		return
 	}
 
-	// await appointment.update({
-	// 	rank: count + 1,
-	// })
-
 	const travel_duration = data['remaining_duration']
 	const queue_status = schedule(
 		travel_duration,
@@ -124,29 +119,22 @@ async function first_eta_generated(data: any, appointment: Appointment) {
 		appointments,
 		consultation
 	)
+
 	if (queue_status == false) {
-		fcm_send_msg(
-			{
-				scheduled: false,
-			},
-			appointment.fcm_registration_token
-		)
+		const msg: FCMMessage = {
+			status: 'cancelled',
+		}
+		fcm_send_msg(msg, appointment.fcm_registration_token)
 		return
 	}
-	// const eta = count * 5 * 60
 
-	const queue_data = {
+	const msg: FCMMessage = {
+		status: 'scheduled',
 		size: `${queue_status.size}`,
 		position: `${queue_status.position}`,
 		eta: `${queue_status.eta}`,
 		etd: `${queue_status.etd}`,
 	}
 
-	fcm_send_msg(
-		{
-			scheduled: true,
-			data: queue_data,
-		},
-		appointment.fcm_registration_token
-	)
+	fcm_send_msg(msg, appointment.fcm_registration_token)
 }
