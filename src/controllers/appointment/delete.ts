@@ -27,6 +27,14 @@ export const controller: RequestHandler = async (req, res, next) => {
 			next(err)
 		} else {
 			appointment.destroy()
+			const appointments_in_the_queue = await Appointment.findAll({
+				where: { consultation_uuid: appointment.consultation_uuid },
+			})
+			await Promise.all(
+				appointments_in_the_queue.map(appointment_in_queue =>
+					appointment_in_queue.increment('rank')
+				)
+			)
 			res.sendStatus(200)
 		}
 	} catch (e) {
