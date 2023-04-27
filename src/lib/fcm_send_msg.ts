@@ -2,15 +2,18 @@ import { getMessaging } from 'firebase-admin/messaging'
 import logger from './logger'
 
 async function fcm_send_msg(data: any, token: string) {
-	const msg = { data, token }
+	const msg = {
+		data: {
+			data: JSON.stringify(data),
+		},
+		token,
+	}
 
 	const msg_with_notification = {
 		...msg,
 		notification: {
 			title: 'Your appointment from MyDoctor',
-			body: `You should leave in ${Math.round(
-				parseInt(data.leave_in) / 60
-			)} minutes`,
+			body: `You should leave at ${data.etd}`,
 		},
 	}
 
