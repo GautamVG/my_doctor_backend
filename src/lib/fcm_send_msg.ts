@@ -6,7 +6,6 @@ async function fcm_send_msg(data: any, token: string) {
 		data: {
 			subtitle: JSON.stringify(data),
 		},
-		priority: 'high',
 		token,
 	}
 
