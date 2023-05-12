@@ -43,6 +43,10 @@ async function evaluate(payload: any) {
 				first_eta_generated(data, appointment)
 				break
 
+			case 'trip:first_eta':
+				first_eta_generated(data, appointment)
+				break
+
 			default:
 				logger.warn(
 					`Webhook payload contained unhandled type: ${type}, ${data['value']}`
