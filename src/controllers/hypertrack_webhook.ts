@@ -129,6 +129,7 @@ async function first_eta_generated(data: any, appointment: Appointment) {
 			status: 'cancelled',
 		}
 		fcm_send_msg(msg, appointment.fcm_registration_token)
+		appointment.destroy()
 		return
 	}
 
@@ -139,6 +140,12 @@ async function first_eta_generated(data: any, appointment: Appointment) {
 		eta: `${queue_status.eta}`,
 		etd: `${queue_status.etd}`,
 	}
+
+	appointment.update({
+		eta: queue_status.eta,
+		etd: queue_status.etd,
+		rank: queue_status.position,
+	})
 
 	fcm_send_msg(msg, appointment.fcm_registration_token)
 }
