@@ -117,7 +117,7 @@ async function first_eta_generated(data: any, appointment: Appointment) {
 	}
 
 	const travel_duration = data['remaining_duration']
-	const queue_status = schedule(
+	const queue_status = await schedule(
 		travel_duration,
 		appointment,
 		appointments,
@@ -140,12 +140,6 @@ async function first_eta_generated(data: any, appointment: Appointment) {
 		eta: `${queue_status.eta}`,
 		etd: `${queue_status.etd}`,
 	}
-
-	appointment.update({
-		eta: queue_status.eta,
-		etd: queue_status.etd,
-		rank: queue_status.position,
-	})
 
 	fcm_send_msg(msg, appointment.fcm_registration_token)
 }
