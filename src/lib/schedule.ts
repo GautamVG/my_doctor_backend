@@ -6,6 +6,7 @@ import Consultation from '../models/consultation'
 
 // Types
 import { QueueStatus } from '../types'
+import logger from './logger'
 
 export async function schedule(
 	_travel_duration: number,
@@ -52,7 +53,10 @@ export async function schedule(
 		new_appointment.set('rank', 1)
 		new_appointment.set('eta', eta.toISO()!)
 		new_appointment.set('etd', eta.toISO()!)
-		await new_appointment.save()
+		logger.debug(
+			`new_appointment is ${JSON.stringify(new_appointment.dataValues)}`
+		)
+		// await new_appointment.save()
 
 		result = {
 			size: 1,
@@ -84,7 +88,10 @@ export async function schedule(
 		new_appointment.set('rank', queued_appointments.length + 1)
 		new_appointment.set('eta', eta.toISO()!)
 		new_appointment.set('etd', eta.toISO()!)
-		await new_appointment.save()
+		logger.debug(
+			`new_appointment is ${JSON.stringify(new_appointment.dataValues)}`
+		)
+		// await new_appointment.save()
 
 		result = {
 			size: queued_appointments.length + 1,
