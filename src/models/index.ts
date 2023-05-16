@@ -105,23 +105,23 @@ export async function populate() {
 	await Promise.all([
 		// Doctor 1 at Clinic 1
 		Consultation.create({
-			doctor_uuid: doctor1.get('uuid'),
-			clinic_uuid: clinic1.get('uuid'),
+			doctor_uuid: doctor1.getDataValue('uuid'),
+			clinic_uuid: clinic1.getDataValue('uuid'),
 			start_time: '18:00:00',
 			end_time: '23:59:00',
 		}),
 
 		// Doctor 2 at Clinic 2
 		Consultation.create({
-			doctor_uuid: doctor2.get('uuid'),
-			clinic_uuid: clinic2.get('uuid'),
+			doctor_uuid: doctor2.getDataValue('uuid'),
+			clinic_uuid: clinic2.getDataValue('uuid'),
 			start_time: '20:00:00',
 			end_time: '23:00:00',
 		}),
 
 		// Doctor 3 at Clinic 2
 		Consultation.create({
-			doctor_uuid: doctor2.getDataValue('uuid'),
+			doctor_uuid: doctor3.getDataValue('uuid'),
 			clinic_uuid: clinic2.getDataValue('uuid'),
 			start_time: '15:00:00',
 			end_time: '18:00:00',
