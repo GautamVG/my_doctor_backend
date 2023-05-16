@@ -117,6 +117,7 @@ interface FCMMessage {
 	position?: string
 	etd?: string // Time in format "hh:mm:ss"
 	eta?: string // Time in format "hh:mm:ss"
+	share_url?: string
 }
 ```
 

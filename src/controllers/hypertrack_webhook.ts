@@ -139,7 +139,11 @@ async function first_eta_generated(data: any, appointment: Appointment) {
 		position: `${queue_status.position}`,
 		eta: `${queue_status.eta}`,
 		etd: `${queue_status.etd}`,
+		share_url: `${data['share_url']}`,
 	}
 
+	logger.debug(
+		`Sending this msg from hypertrack-webhook: ${JSON.stringify(msg)}`
+	)
 	fcm_send_msg(msg, appointment.fcm_registration_token)
 }
