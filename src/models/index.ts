@@ -45,42 +45,42 @@ export async function populate() {
 		'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
 
 	const doctor1 = await Doctor.create({
-		email: 'aditya@gmail.com',
-		password: 'aditya123',
-		name: 'Aditya',
-		photo: img,
+		email: 'prashant@gmail.com',
+		password: 'prashant123',
+		name: 'Prashant Jain',
+		photo: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
 		medical_certificate: img,
 	})
 
 	const doctor2 = await Doctor.create({
-		email: 'gautam@gmail.com',
-		password: 'gautam123',
-		name: 'Gautam',
-		photo: img,
+		email: 'pratik@gmail.com',
+		password: 'pratik123',
+		name: 'Pratik Babbar',
+		photo: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
 		medical_certificate: img,
 	})
 
 	const doctor3 = await Doctor.create({
-		email: 'chintan@gmail.com',
-		password: 'chintan123',
-		name: 'Chintan',
-		photo: img,
+		email: 'gaurang@gmail.com',
+		password: 'gaurang123',
+		name: 'Gaurang Gulati',
+		photo: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
 		medical_certificate: img,
 	})
 
 	const patient1 = await Patient.create({
-		email: 'shaan@gmail.com',
-		password: 'shaan123',
-		name: 'Shaan',
+		email: 'gautam@gmail.com',
+		password: 'gautam123',
+		name: 'Gautam',
 		phone: '123456789',
 		gender: 'M',
 		dob: '13/03/2002',
 	})
 
 	const patient2 = await Patient.create({
-		email: 'kk@gmail.com',
-		password: 'kk123',
-		name: 'KK',
+		email: 'aditya@gmail.com',
+		password: 'aditya123',
+		name: 'Aditya',
 		phone: '123456789',
 		gender: 'M',
 		dob: '13/03/2002',
@@ -105,23 +105,23 @@ export async function populate() {
 	await Promise.all([
 		// Doctor 1 at Clinic 1
 		Consultation.create({
-			doctor_uuid: doctor1.getDataValue('uuid'),
-			clinic_uuid: clinic1.getDataValue('uuid'),
+			doctor_uuid: doctor1.get('uuid'),
+			clinic_uuid: clinic1.get('uuid'),
 			start_time: '18:00:00',
 			end_time: '23:59:00',
 		}),
 
-		// Doctor 2 at Clinic 1
+		// Doctor 2 at Clinic 2
 		Consultation.create({
-			doctor_uuid: doctor2.getDataValue('uuid'),
-			clinic_uuid: clinic1.getDataValue('uuid'),
+			doctor_uuid: doctor2.get('uuid'),
+			clinic_uuid: clinic2.get('uuid'),
 			start_time: '20:00:00',
 			end_time: '23:00:00',
 		}),
 
 		// Doctor 3 at Clinic 2
 		Consultation.create({
-			doctor_uuid: doctor3.getDataValue('uuid'),
+			doctor_uuid: doctor2.getDataValue('uuid'),
 			clinic_uuid: clinic2.getDataValue('uuid'),
 			start_time: '15:00:00',
 			end_time: '18:00:00',
